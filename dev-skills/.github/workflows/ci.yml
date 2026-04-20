@@ -1,0 +1,62 @@
+name: CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.24.x'
+          cache: true
+
+      - name: Lint backend
+        run: |
+          echo "Aquí correría golangci-lint en un proyecto real"
+
+      - name: Test backend
+        run: |
+          echo "Aquí correría go test ./... en un proyecto real"
+
+      - name: Build backend
+        run: |
+          echo "Aquí correría go build ./... en un proyecto real"
+
+  frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Lint frontend
+        run: |
+          echo "Aquí correría eslint en un proyecto real"
+
+      - name: Test frontend
+        run: |
+          echo "Aquí correría vitest/jest en un proyecto real"
+
+      - name: Build frontend
+        run: |
+          echo "Aquí correría next build en un proyecto real"
